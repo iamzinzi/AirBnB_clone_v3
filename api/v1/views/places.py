@@ -57,6 +57,10 @@ def create_place(city_id):
         return jsonify({"error": "Missing name"}), 400
     elif 'user_id' not in request.json:
         return jsonify({"error": "Missing user_id"}), 400
+    user_id = new_place_dict['user_id']
+    user = storage.get("User", user_id)
+    if user is None:
+        abort(404)
     new_place_dict['city_id'] = city_id
     new_place = Place(**new_place_dict)
     storage.new(new_place)
