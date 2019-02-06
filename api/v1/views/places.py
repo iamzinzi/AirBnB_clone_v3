@@ -55,6 +55,8 @@ def create_place(city_id):
         return jsonify({"error": "Not a JSON"}), 400
     elif 'name' not in request.json:
         return jsonify({"error": "Missing name"}), 400
+    elif 'user_id' not in request.json:
+        return jsonify({"error": "Missing user_id"}), 400
     new_place_dict['city_id'] = city_id
     new_place = Place(**new_place_dict)
     storage.new(new_place)
@@ -72,7 +74,7 @@ def update_place(place_id):
     place = storage.get('Place', place_id)
     if place is None:
         abort(404)
-    ignore = ['id', 'created_at', 'updated_at', 'state_id']
+    ignore = ['id', 'created_at', 'updated_at', 'city_id', 'user_id']
     for k, v in update_place_json.items():
         if k not in ignore:
             setattr(place, k, v)
