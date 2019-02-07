@@ -133,4 +133,4 @@ class TestDBStorage(unittest.TestCase):
         models.storage.delete(new_state)
         models.storage.delete(new_user)
         models.storage.save()
-        self.aseertEqual(orig_count, models.storage.count())
+        self.assertEqual(orig_count, models.storage.count())
